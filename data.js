@@ -1,6 +1,6 @@
 // TODO: RECREATE THIS IN GOOGLE SHEET, EXPORT TO CSV FILES, PARSE WITH D3
 
-const organizations = [
+const organizationsDetail = [
   {
     name: 'City of Asheville',
     type: 'government',
@@ -37,6 +37,10 @@ const people = [
       {
         name: 'Code for Asheville',
         role: 'Volunteer',
+      },
+      {
+        name: 'Dev Bootcamp',
+        role: 'alumna'
       }
     ],
   },
@@ -50,16 +54,24 @@ const people = [
       {
         name: 'Code for Asheville',
         role: 'Former Co-Captain',
+      },
+      {
+        name: 'Circus',
+        role: 'clown'
       }
     ]
   },
   {
-    name: 'Christine',
+    name: 'Sarah',
     orgMemberships: [
       {
         name: 'Asheville Symphony Chorus',
         role: 'Alto',
       },
+      {
+        name: 'Nobel Laureates',
+        role: 'winner'
+      }
     ]
   },
   {
@@ -68,6 +80,10 @@ const people = [
       {
         name: 'MyCincinnatti',
         role: 'teacher',
+      },
+      {
+        name: 'Habitat for Humanity',
+        role: 'Americorps'
       }
     ]
   }
@@ -75,11 +91,11 @@ const people = [
 
 // Assume members of the same organization are linked
 // Other kinds of links: personal, professional, ?
-
 const nonOrgPeopleLinks = [
   {
     source: 'Annie',
-    target: 'Melanie'
+    target: 'Melanie',
+    type: 'personal',
   },
 ]
 
@@ -88,6 +104,6 @@ const nonOrgPeopleLinks = [
 // Assume orgs are linked through people
 // Other kinds of links: partnerships, space sharing, subsidiaries, etc
 // Should we generate orgs from the people list?
-const orgLinks = [
+const nonPeopleOrgLinks = [
 
 ]

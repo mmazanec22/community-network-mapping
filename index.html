@@ -54,21 +54,46 @@
   </body>
   <script type="text/javascript">
   const peopleLinks = nonOrgPeopleLinks;
-
+  const orgLinks = nonPeopleOrgLinks;
+  const organizations = organizationsDetail;
   // For each person, iterate through other people links for people in the same org, create a link for each person
   // TODO: dedupe this
   people.forEach(person => {
     person.orgMemberships.forEach(org => {
-      const colleagues = people.filter(candidatePerson => candidatePerson.name !== person.name && candidatePerson.orgMemberships.map(o => o.name).includes(org.name))
-      console.log(colleagues)
-      if (colleagues.length > 0) {
-        colleagues.forEach(colleague => peopleLinks.push({
-          source: person.name,
-          target: colleague.name,
-        }))
-      }
+
+      // If org is not in org list, add it
+      const isInOrgList = organizations.map(d => d.name).includes(org.name);
+      if (!isInOrgList) organizations.push({
+        name: org.name,
+        type: 'unknown'
+      })
+
+      // for each org that person is a member of, make a link to the other orgs they are also a member of
+      person.orgMemberships.forEach(candidateOrg => {
+        if (candidateOrg !== org) {
+          orgLinks.push({
+            source: org.name,
+            target:candidateOrg.name,
+          })
+        }
+      })
+
+      people.forEach(candidatePerson => {
+        const colleague = candidatePerson.name !== person.name && candidatePerson.orgMemberships.map(o => o.name).includes(org.name)
+        if (colleague) {
+          peopleLinks.push({
+            source: person.name,
+            target: candidatePerson.name,
+            type: 'organization'
+          })
+        }
+      })
     })
   })
+
+  // Add to orgs from list of a person's orgs
+
+  // Add to org links from people who are linked
 
 
   const orgSvg = d3.select('#org-nodes').select('svg')
@@ -84,8 +109,10 @@
     .nodes(people)
 
   const peopleLinkForce =  d3.forceLink(peopleLinks)
+    .distance(100)
     .id(d => d.name);
   const orgLinkForce =  d3.forceLink(orgLinks)
+    .distance(100)
     .id(d => d.name);
 
   peopleSimulation
@@ -116,6 +143,8 @@
     .style('stroke', 'lightseagreen')
     .attr("stroke-width", 2);
 
+  const tooltipText = makeToolTip()
+
   const peopleNodes = peopleSvg.append("g")
     .attr("class", "nodes")
     .selectAll("circle")
@@ -125,7 +154,10 @@
     .attr("r", 10)
     .attr('stroke', 'salmon')
     .attr('stroke-width', 2)
-    .attr("fill", "white");
+    .attr("fill", "white")
+    .on('mouseover', d => tooltipText.text(d.name))
+    .on('mouseout', d => tooltipText.text(''))
+
   const orgNodes = orgSvg.append("g")
     .attr("class", "nodes")
     .selectAll("circle")
@@ -135,7 +167,9 @@
     .attr("r", 10)
     .attr('stroke-width', 2)
     .attr('stroke', 'salmon')
-    .attr("fill", "white");
+    .attr("fill", "white")
+    .on('mouseover', d => tooltipText.text(d.name))
+    .on('mouseout', d => tooltipText.text(''))
 
   const dragHandler = d3.drag()
     .on("start", dragStart)
@@ -183,6 +217,54 @@
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
+  }
+  function makeToolTip() {
+      const body = d3.select('body');
+
+      const tooltip = d3.select('body').append('div')
+          .attr('class', 'tooltip')
+          .style('position', 'absolute')
+          .style('z-index', '1');
+
+      tooltip.append('text')
+          .text('')
+          .attr('text-anchor', 'middle')
+          .style('color', 'lightseagreen');
+
+      body
+        .on('mousemove', () => {
+            moveToolTip(tooltip);
+        })
+        .on('mouseout', () => {
+            tooltip.style('display', 'none');
+        });
+    return tooltip.select('text');
+  }
+
+  function moveToolTip(tooltip) {
+      const body = d3.select('body');
+      tooltip.style('display', 'unset');
+
+      const svgDimensions = body.node().getBoundingClientRect();
+      const eventXRelToScroll = d3.event.pageX - window.scrollX;
+      const eventYRelToScroll = d3.event.pageY - window.scrollY;
+
+      let tipX = (eventXRelToScroll) + 10;
+      let tipY = (eventYRelToScroll) + 5;
+
+      const tooltipDimensions = tooltip.node().getBoundingClientRect();
+
+      tipX = (eventXRelToScroll + tooltipDimensions.width + 10 > svgDimensions.right) ?
+          tipX - tooltipDimensions.width - 10 : tipX;
+
+      tipY = (eventYRelToScroll + tooltipDimensions.height + 5 > svgDimensions.bottom) ?
+          tipY - tooltipDimensions.height - 5 : tipY;
+
+      tooltip
+          .transition()
+          .duration(10)
+          .style('top', `${tipY}px`)
+          .style('left', `${tipX}px`);
   }
 </script>
 </html>
