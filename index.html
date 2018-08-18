@@ -38,85 +38,85 @@
       <svg>
       </svg>
     </div>
-    <script type="text/javascript">
-    console.log('???')
-    const orgSvg = d3.select('#org-nodes').select('svg')
-    const peopleSvg = d3.select('#individual-nodes').select('svg')
-    const bothSvg = d3.select('#circlepack-nodes').select('svg')
+  </body>
+  <script type="text/javascript">
+  const orgSvg = d3.select('#org-nodes').select('svg')
+  const peopleSvg = d3.select('#individual-nodes').select('svg')
+  const bothSvg = d3.select('#circlepack-nodes').select('svg')
 
-    const width = orgSvg.style('width').replace('px', '');
-    const height = orgSvg.style('height').replace('px', '');
+  const width = orgSvg.style('width').replace('px', '');
+  const height = orgSvg.style('height').replace('px', '');
 
-    // const orgSimulation = d3.forceSimulation()
-    //   .nodes(organizations);
+  const orgSimulation = d3.forceSimulation()
+    .nodes(organizations);
 
-    const peopleSimulation = d3.forceSimulation()
+  const peopleSimulation = d3.forceSimulation()
     .nodes(people)
 
-    const peopleLinkForce =  d3.forceLink(peopleLinks)
+  const peopleLinkForce =  d3.forceLink(peopleLinks)
     .id(d => d.name);
 
-    peopleSimulation
+  peopleSimulation
     .force("charge_force", d3.forceManyBody())
     .force("center_force", d3.forceCenter(width / 2, height / 2))
     .force("links",peopleLinkForce);
 
-    //add tick instructions:
-    peopleSimulation.on("tick", tickActions );
+  //add tick instructions:
+  peopleSimulation.on("tick", tickActions );
 
-    var node = peopleSvg.append("g")
-      .attr("class", "nodes")
-      .selectAll("circle")
-      .data(people)
-      .enter()
-      .append("circle")
-      .attr("r", 10)
-      .attr("fill", "red");
+  const node = peopleSvg.append("g")
+    .attr("class", "nodes")
+    .selectAll("circle")
+    .data(people)
+    .enter()
+    .append("circle")
+    .attr("r", 10)
+    .attr('stroke', 'tomato')
+    .attr("fill", "white");
 
-    var link = peopleSvg.append("g")
-      .attr("class", "links")
-      .selectAll("line")
-      .data(peopleLinks)
-      .enter().append("line")
-      .style('stroke', 'black')
-      .attr("stroke-width", 2);
+  const link = peopleSvg.append("g")
+    .attr("class", "links")
+    .selectAll("line")
+    .data(peopleLinks)
+    .enter().append("line")
+    .style('stroke', 'black')
+    .attr("stroke-width", 2);
 
-    var dragHandler = d3.drag()
+  const dragHandler = d3.drag()
     .on("start", dragStart)
     .on("drag", dragDrag)
     .on("end", dragEnd);
 
-    dragHandler(node)
+  dragHandler(node)
 
-    function dragStart(d) {
-      if (!d3.event.active) simulation.alphaTarget(0.3	).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-    function dragDrag(d) {
-      d.fx = d3.event.x;
-      d.fy = d3.event.y;
-    }
-    function dragEnd(d) {
-      if (!d3.event.active) simulation.alphaTarget(0);
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-    function tickActions() {
-      //update circle positions each tick of the simulation
-      node
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
+  function dragStart(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3	).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  function dragDrag(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  }
+  function dragEnd(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  function tickActions() {
+    //update circle positions each tick of the simulation
+    node
+    .attr("cx", function(d) { return d.x; })
+    .attr("cy", function(d) { return d.y; });
 
-      //update link positions
-      //simply tells one end of the line to follow one node around
-      //and the other end of the line to follow the other node around
-      link
-      .attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
-    }
-  </script>
-  </body>
+    //update link positions
+    //simply tells one end of the line to follow one node around
+    //and the other end of the line to follow the other node around
+    link
+    .attr("x1", function(d) { return d.source.x; })
+    .attr("y1", function(d) { return d.source.y; })
+    .attr("x2", function(d) { return d.target.x; })
+    .attr("y2", function(d) { return d.target.y; });
+  }
+</script>
 </html>
