@@ -76,12 +76,14 @@ const people = [
 // Assume members of the same organization are linked
 // Other kinds of links: personal, professional, ?
 
-const peopleLinks = [
+const nonOrgPeopleLinks = [
   {
     source: 'Annie',
     target: 'Melanie'
   },
 ]
+
+
 
 // Assume orgs are linked through people
 // Other kinds of links: partnerships, space sharing, subsidiaries, etc

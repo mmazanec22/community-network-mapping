@@ -53,6 +53,24 @@
     </div>
   </body>
   <script type="text/javascript">
+  const peopleLinks = nonOrgPeopleLinks;
+
+  // For each person, iterate through other people links for people in the same org, create a link for each person
+  // TODO: dedupe this
+  people.forEach(person => {
+    person.orgMemberships.forEach(org => {
+      const colleagues = people.filter(candidatePerson => candidatePerson.name !== person.name && candidatePerson.orgMemberships.map(o => o.name).includes(org.name))
+      console.log(colleagues)
+      if (colleagues.length > 0) {
+        colleagues.forEach(colleague => peopleLinks.push({
+          source: person.name,
+          target: colleague.name,
+        }))
+      }
+    })
+  })
+
+
   const orgSvg = d3.select('#org-nodes').select('svg')
   const peopleSvg = d3.select('#individual-nodes').select('svg')
   const bothSvg = d3.select('#circlepack-nodes').select('svg')
