@@ -27,6 +27,9 @@
         height: 100%;
         width: 100%;
       }
+      .nodes circle {
+        cursor: pointer;
+      }
     </style>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script type="text/javascript" src="./data.js"></script>
@@ -101,8 +104,9 @@
     .data(people)
     .enter()
     .append("circle")
-    .attr("r", 8)
+    .attr("r", 10)
     .attr('stroke', 'salmon')
+    .attr('stroke-width', 2)
     .attr("fill", "white");
   const orgNodes = orgSvg.append("g")
     .attr("class", "nodes")
@@ -110,7 +114,8 @@
     .data(organizations)
     .enter()
     .append("circle")
-    .attr("r", 8)
+    .attr("r", 10)
+    .attr('stroke-width', 2)
     .attr('stroke', 'salmon')
     .attr("fill", "white");
 
@@ -123,7 +128,10 @@
   dragHandler(orgNodes)
 
   function dragStart(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3	).restart();
+    if (!d3.event.active) {
+      peopleSimulation.alphaTarget(0.3	).restart();
+      orgSimulation.alphaTarget(0.3	).restart();
+    }
     d.fx = d.x;
     d.fy = d.y;
   }
@@ -132,7 +140,10 @@
     d.fy = d3.event.y;
   }
   function dragEnd(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
+    if (!d3.event.active) {
+      peopleSimulation.alphaTarget(0);
+      orgSimulation.alphaTarget(0);
+    }
     d.fx = d.x;
     d.fy = d.y;
   }
