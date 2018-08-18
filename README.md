@@ -15,3 +15,10 @@ Relevant Google Docs:
 
 Other relevant links:
 * [Asheville Local Wiki](https://localwiki.org/asheville/)
+
+
+TODO:
+* Translate data gathered at event into data set
+* Prototype
+* Figure out how we will gather more data (that tool that Kendra mentioned that is better than Google Forms?)
+* Meet up with group and get feedback, send volunteers forth to gather data
