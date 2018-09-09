@@ -18,7 +18,6 @@ Other relevant links:
 
 
 TODO:
-* Translate data gathered at event into data set
-* Prototype
-* Figure out how we will gather more data (that tool that Kendra mentioned that is better than Google Forms?)
+* Continue making links
+* Make a create-react-app/semiotic prototype with npm airtable module, deploy to heroku
 * Meet up with group and get feedback, send volunteers forth to gather data
