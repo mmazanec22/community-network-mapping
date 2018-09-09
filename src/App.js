@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NetworkMap from './NetworkMap'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div>
+        <a href="#mainContent">Skip to main content</a>
+        <header>
+          <h1>Community Network Map</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <nav>
+          <ul>
+            <li>About</li>
+          </ul>
+        </nav>
+        <main id="mainContent">
+          <NetworkMap/>
+        </main>
+        <footer>Footer things</footer>
       </div>
     );
   }
