@@ -1,5 +1,59 @@
-body {
-  margin: 0;
+html, body {
+  margin: 0 auto;
   padding: 0;
   font-family: sans-serif;
+  width: 100%;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+
+header, footer {
+  width: 100vw;
+  background-color: #5c555e;
+  color: white;
+  text-transform: lowercase;
+  font-weight: lighter;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  height: 1.5em;
+  margin-top: 2em;
+  text-align: center;
+}
+
+ul li {
+  list-style: none;
+}
+
+header h1 {
+  display: inline-block;
+  width: 74%;
+  padding-left: 2.5%;
+}
+
+header nav {
+  display: inline-block;
+  width: 20%;
+}
+
+a#skipNav {
+  color: #5c555e;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+a#skipNav:focus, a#skipNav:hover {
+  color: white;
+}
+
+#mainContent {
+  height: 120vh
+}
+
+#networkVisContainer {
+  height: 100%;
+  padding: 2% 7.5% 5%;
 }

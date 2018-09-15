@@ -6,19 +6,19 @@ class App extends Component {
   render() {
     return (
       <div>
-        <a href="#mainContent">Skip to main content</a>
         <header>
+          <a id="skipNav" href="#mainContent">Skip to main content</a>
           <h1>Community Network Map</h1>
+          <nav>
+            <ul>
+              <li>About</li>
+            </ul>
+            </nav>
         </header>
-        <nav>
-          <ul>
-            <li>About</li>
-          </ul>
-        </nav>
         <main id="mainContent">
           <NetworkMapContainer/>
         </main>
-        <footer>Footer things</footer>
+        <footer>contact</footer>
       </div>
     );
   }

@@ -5,34 +5,58 @@ import Airtable from 'airtable';
 class NetworkMapContainer extends Component {
   constructor() {
     super()
+    this.state = {
+      fetchedNodes: null,
+      fetchedLinks: null,
+    }
   }
-  render() {
+  componentDidMount() {
     // See docs: https://airtable.com/appzeqG8nWiyOHXXY/api/docs#nodejs/table:organizations:list
-    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_API_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
+    const base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_API_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
 
     base('Organizations').select({
-        // Selecting the first 3 records in Grid view:
-        maxRecords: 3,
-        view: "Grid view"
-    }).eachPage(function page(records, fetchNextPage) {
-        // This function (`page`) will get called for each page of records.
-
-        records.forEach(function(record) {
-            console.log('Retrieved', record.get('Name'));
-        });
-
-        // To fetch the next page of records, call `fetchNextPage`.
-        // If there are more records, `page` will get called again.
-        // If there are no more records, `done` will get called.
-        fetchNextPage();
-
-    }, function done(err) {
-        if (err) { console.error(err); return; }
-    });
-    // Make API call-- maybe in another lifecycle stage
-    // Return loading animation if not done, error message if error, or vis
+      maxRecords: 200,
+    }).eachPage((records, fetchNextPage) => {
+      const nodes = [];
+      const links = [];
+      records.forEach((record) => {
+        nodes.push({
+          id: record.id,
+          orgName: record.get('Name'),
+        })
+        const linksAsDest = record.get('Links as Dest') || [];
+        const linksAsSource = record.get('Links as Source') || [];
+        linksAsDest.forEach(destLink =>
+          links.push({
+            source: destLink,
+            target: record.id,
+          })
+        )
+        linksAsSource.forEach(sourceLink =>
+          links.push({
+            source: record.id,
+            target: sourceLink,
+          })
+        )
+      });
+      this.setState({
+        fetchedNodes: nodes,
+        fetchedLinks: links,
+      })
+      // fetchNextPage();
+    }, (err) => {
+      if (err) { console.error(err); return <div>Error :(</div>; }
+      });
+  }
+  render() {
+    if (!this.state.fetchedNodes || !this.state.fetchedLinks) {
+      return <div>Not done!</div>;
+    }
     return (<div id="networkVisContainer">
-      <NetworkMap/>
+      <NetworkMap
+        nodes={this.state.fetchedNodes}
+        links={this.state.fetchedLinks}
+      />
     </div>)
   }
 }
