@@ -19,6 +19,8 @@ class NetworkMap extends Component {
         nodeStyle={{
           stroke: '#f6558b',
           fill: '#f6558b',
+          strokeOpacity: 0.5,
+          strokeWidth: 3,
         }}
         networkType={{ type: 'force', iterations: 500, edgeStrength: 0.1 }}
         nodeLabels={d => d.orgName}

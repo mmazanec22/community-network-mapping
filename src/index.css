@@ -7,8 +7,13 @@ html, body {
   font-family: 'Montserrat', sans-serif;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 header, footer {
-  width: 100vw;
+  width: 100%;
   background-color: #5c555e;
   color: white;
   text-transform: lowercase;
@@ -27,15 +32,15 @@ ul li {
   list-style: none;
 }
 
-header h1 {
+header #logo {
   display: inline-block;
-  width: 74%;
-  padding-left: 2.5%;
+  width: 70%;
+  padding: 1% 0% 0% 2.5%;
+  font-size: 2em;
 }
 
 header nav {
   display: inline-block;
-  width: 20%;
 }
 
 a#skipNav {
@@ -50,10 +55,16 @@ a#skipNav:focus, a#skipNav:hover {
 }
 
 #mainContent {
-  height: 120vh
+  min-height: 60vh;
 }
 
 #networkVisContainer {
-  height: 100%;
+  height: 120vh;
   padding: 2% 7.5% 5%;
+}
+
+.justText {
+  padding: 15vh 19vw;
+  line-height: 1.75em;
+  font-size: 1.5em;
 }

@@ -50,7 +50,7 @@ class NetworkMapContainer extends Component {
   }
   render() {
     if (!this.state.fetchedNodes || !this.state.fetchedLinks) {
-      return <div>Not done!</div>;
+      return <div>Loading data...</div>;
     }
     return (<div id="networkVisContainer">
       <NetworkMap
