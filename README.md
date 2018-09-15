@@ -20,6 +20,7 @@ Other relevant links:
 TODO:
 * Continue making links in Airtable
 * Fill in descriptive information about orgs and links in Airtable
+* Add styling
 * Add react-router, write about page
 * Connect Airtable and create network map
 * Deploy to Heroku

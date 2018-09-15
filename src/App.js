@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import NetworkMap from './NetworkMap'
+import NetworkMapContainer from './NetworkMapContainer'
 
 class App extends Component {
   render() {
@@ -16,7 +16,7 @@ class App extends Component {
           </ul>
         </nav>
         <main id="mainContent">
-          <NetworkMap/>
+          <NetworkMapContainer/>
         </main>
         <footer>Footer things</footer>
       </div>
