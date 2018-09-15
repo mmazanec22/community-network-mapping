@@ -8,6 +8,9 @@ class NetworkMap extends Component {
 
   render() {
     return (<ResponsiveNetworkFrame
+        margin={{
+          bottom: 15,
+        }}
         responsiveWidth
         responsiveHeight
         nodes={this.props.nodes}

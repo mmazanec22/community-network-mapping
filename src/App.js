@@ -6,9 +6,6 @@ import About from './About';
 
 class App extends Component {
   render() {
-    // Using react router, make an about page
-    // Make header link back home
-    // Make about link link to about
     // Do a media query that tells the network map it's teeny
     // Make a better loading page
     // Make footer a link to a google form
@@ -27,7 +24,7 @@ class App extends Component {
           <Route exact path="/" component={NetworkMapContainer}/>
           <Route path="/about" component={About}/>
         </main>
-        <footer>contact</footer>
+        <footer><a href="https://goo.gl/forms/mtnR70Hh5PfJTc1x2" target="_blank" rel="noopener noreferrer">contact</a></footer>
       </div>
     );
   }

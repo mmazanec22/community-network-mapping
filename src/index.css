@@ -28,8 +28,16 @@ footer {
   text-align: center;
 }
 
+p a {
+  text-decoration: underline;
+}
+
 ul li {
   list-style: none;
+}
+
+header a:hover, footer a:hover, header a:focus, footer a:focus {
+  text-decoration: underline;
 }
 
 header #logo {
@@ -56,6 +64,10 @@ a#skipNav:focus, a#skipNav:hover {
 
 #mainContent {
   min-height: 60vh;
+}
+
+#mainContent a:hover, #mainContent a:focus {
+  color: #f6558b;
 }
 
 #networkVisContainer {
