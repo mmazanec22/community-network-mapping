@@ -2,7 +2,6 @@
   "name": "airtable-reader",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mmazanec22.github.io/community-network-mapping",
   "dependencies": {
     "airtable": "^0.5.6",
     "react": "^16.5.0",
@@ -12,14 +11,9 @@
     "semiotic": "^1.14.3"
   },
   "scripts": {
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "gh-pages": "^1.2.0"
   }
 }

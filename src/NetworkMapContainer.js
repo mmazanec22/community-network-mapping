@@ -12,6 +12,8 @@ class NetworkMapContainer extends Component {
   }
   componentDidMount() {
     // See docs: https://airtable.com/appzeqG8nWiyOHXXY/api/docs#nodejs/table:organizations:list
+    // TODO: move this stuff to a lambda function so that API key won't be exposed in bundle
+
     const base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_API_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
 
     base('Organizations').select({
