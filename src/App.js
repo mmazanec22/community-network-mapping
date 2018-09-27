@@ -21,8 +21,10 @@ class App extends Component {
             </nav>
         </header>
         <main id="mainContent">
-          <Route exact path={process.env.PUBLIC_URL + "/"} component={NetworkMapContainer}/>
-          <Route path={process.env.PUBLIC_URL + "/about"} component={About}/>
+          <Switch>
+            <Route path={"/about"} component={About}/>
+            <Route path={"/"} component={NetworkMapContainer}/>
+          </Switch>
         </main>
         <footer><a href="https://goo.gl/forms/mtnR70Hh5PfJTc1x2" target="_blank" rel="noopener noreferrer">contact</a></footer>
       </div>
