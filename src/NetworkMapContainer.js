@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NetworkMap from './NetworkMap';
-import Airtable from 'airtable';
 
 class NetworkMapContainer extends Component {
   constructor() {
@@ -11,44 +10,15 @@ class NetworkMapContainer extends Component {
     }
   }
   componentDidMount() {
-    // See docs: https://airtable.com/appzeqG8nWiyOHXXY/api/docs#nodejs/table:organizations:list
-    // TODO: move this stuff to a lambda function so that API key won't be exposed in bundle
-
-    const base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_API_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
-
-    base('Organizations').select({
-      maxRecords: 200,
-    }).eachPage((records, fetchNextPage) => {
-      const nodes = [];
-      const links = [];
-      records.forEach((record) => {
-        nodes.push({
-          id: record.id,
-          orgName: record.get('Name'),
+    fetch(
+      'https://8ipt3269ae.execute-api.us-east-1.amazonaws.com/latest')
+      .then(results => results.json())
+      .then(json =>
+        this.setState({
+          fetchedNodes: json.fetchedNodes,
+          fetchedLinks: json.fetchedLinks,
         })
-        const linksAsDest = record.get('Links as Dest') || [];
-        const linksAsSource = record.get('Links as Source') || [];
-        linksAsDest.forEach(destLink =>
-          links.push({
-            source: destLink,
-            target: record.id,
-          })
-        )
-        linksAsSource.forEach(sourceLink =>
-          links.push({
-            source: record.id,
-            target: sourceLink,
-          })
-        )
-      });
-      this.setState({
-        fetchedNodes: nodes,
-        fetchedLinks: links,
-      })
-      // fetchNextPage();
-    }, (err) => {
-      if (err) { console.error(err); return <div>Error :(</div>; }
-      });
+      )
   }
   render() {
     if (!this.state.fetchedNodes || !this.state.fetchedLinks) {
