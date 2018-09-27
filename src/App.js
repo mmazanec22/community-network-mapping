@@ -13,16 +13,16 @@ class App extends Component {
       <div>
         <header>
           <a id="skipNav" href="#mainContent">Skip to main content</a>
-          <Link to="/" id="logo">Asheville Community Network Map</Link>
+          <Link to={process.env.PUBLIC_URL + "/"} id="logo">Asheville Community Network Map</Link>
           <nav>
             <ul>
-              <Link to="/about"><li>About</li></Link>
+              <Link to={process.env.PUBLIC_URL + "/about"}><li>About</li></Link>
             </ul>
             </nav>
         </header>
         <main id="mainContent">
-          <Route exact path="/" component={NetworkMapContainer}/>
-          <Route path="/about" component={About}/>
+          <Route exact path={process.env.PUBLIC_URL + "/"} component={NetworkMapContainer}/>
+          <Route path={process.env.PUBLIC_URL + "/about"} component={About}/>
         </main>
         <footer><a href="https://goo.gl/forms/mtnR70Hh5PfJTc1x2" target="_blank" rel="noopener noreferrer">contact</a></footer>
       </div>
