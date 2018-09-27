@@ -2,7 +2,7 @@
   "name": "NetworkMap",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mmazanec22.github.io/community-network-mapping",
+  "homepage": "http://mmazanec22.github.io/community-network-mapping/",
   "dependencies": {
     "gh-pages": "^2.0.0",
     "react": "^16.5.0",
