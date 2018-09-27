@@ -2,7 +2,7 @@
   "name": "NetworkMap",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mmazanec22.github.io/community-network-map",
+  "homepage": "http://mmazanec22.github.io/community-network-mapping",
   "dependencies": {
     "gh-pages": "^2.0.0",
     "react": "^16.5.0",
@@ -12,7 +12,7 @@
     "semiotic": "^1.14.3"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
